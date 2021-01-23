@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lasra Shop | Tempat Jual Beli Laptop</title>
+
+	<!-- google font -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
+
+	<!-- font icon -->
+	<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+	<style>
+		:root {
+			--gap-grid: 10px;
+		}
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			text-transform: capitalize;
+		}
+
+		img {
+			width: 100%;
+		}
+
+		body {
+			background: gainsboro;
+			font-size: 18px;
+			font-family: 'Oswald', Arial, Helvetica, sans-serif;
+			margin: 50px;
+		}
+
+		/* container */
+		.container {
+			display: grid;
+			gap: var(--gap-grid);
+		}
+		/* header */
+		.header {
+			gap: var(--gap-grid);
+			display: grid;
+			grid-template-areas: 
+			'hero hero feature-1'
+			'hero hero feature-2';
+		}
+		.hero {
+			grid-area: hero;
+			min-height: 300px;
+			padding: 50px;
+			background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .9)), url(laptop.jpg);
+			background-size: cover;
+			background-position: center; 
+		}
+
+		.hero * {
+			display: none;
+		}
+
+		.features {
+			background: #000;
+			color: #fff;
+			display: grid;
+			place-content: center;
+			cursor: pointer;
+		}
+		.features > * {
+			opacity: 0;
+			transition: .5s ease;
+		}
+		.features:hover > *{
+			transform: scale(0.8);
+			opacity: 1;
+		}
+
+		.features p {
+			text-align: center;
+		}
+
+		.features .price {
+			font-size: 3em;
+			font-weight: 200;
+		}
+
+		.feature-1 {
+			/*transition: .5 ease;*/
+			grid-area: feature-1;
+			background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .9)), url(laptop-2.jpg);
+			background-size: cover; 
+		}
+
+		.feature-2 {
+			/*transition: .5 ease;*/
+			grid-area: feature-2;
+			/*background-repeat: no-repeat;*/
+			background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .9)),  url(laptop-3.jpg);
+			background-size: cover;
+		}
+
+		/* navbar */
+		.menu {
+			order: -1;
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			align-items: center;
+		}
+
+		.menu .brand {
+			font-size: 1.3em;
+			color: #333;
+		}
+
+		.menu ul {
+			gap: 5px;
+			list-style: none;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr) );
+		}
+
+		.menu a {
+			text-align: center;
+			display: block;
+			background: #000;
+			text-decoration: none;
+			color: #fff;
+			padding: 5px;
+			text-transform: uppercase;
+			font-size: .9em;
+		}
+
+		/* service */
+		.services {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 20px;
+		}
+		.service {
+			text-align: center;
+			background: white;
+			border: 1px solid #aaa;
+			border-radius: 3px;
+			padding: 15px;
+			box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+		}
+		.service .icon {
+			font-size: 2em;
+		}
+
+		.service .title {
+			font-weight: bold;
+			font-size: 1.2em;
+		}
+
+		.service .description {
+			letter-spacing: 1px;
+			font-weight: 200;
+			font-size: .8em;
+		}
+
+		/* gallery */
+		.gallery {
+			margin-top: 50px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		}
+
+		.gallery h2 {
+			grid-column: 1 / -1;
+			text-align: center;
+			margin-bottom: 10px;
+
+		}
+
+		/*hamburger menu icons*/
+		.menu-toggle{
+			display: none;
+			flex-direction: column;
+			height: 20px;
+			justify-content: space-between;
+			z-index: 2;
+			position: relative;
+		}
+		.menu-toggle input{
+			position: absolute;
+			width: 40px;
+			height: 28px;
+			opacity: 0;
+			left: -6px;
+			top: -4px;
+			cursor: pointer;
+		}
+		.menu-toggle span{
+			display: block;
+			width: 28px;
+			height: 3px;
+			background-color: #000;
+			border-radius: 3px;
+			transition: all 0.5s;
+		}
+		/*hamburger menu animation*/
+		.menu-toggle span:nth-child(2){
+			transform-origin: 0 0;
+
+		}
+		.menu-toggle span:nth-child(4){
+			transform-origin: 0 100%;
+
+		}
+		.menu-toggle input:checked ~ span:nth-child(2){
+			background-color: white;
+			transform: rotate(45deg) translate(-1px, -1px);
+		}
+		.menu-toggle input:checked ~ span:nth-child(3){
+			opacity: 0;
+			transform: scale(0);
+		}
+		.menu-toggle input:checked ~ span:nth-child(4){
+			background-color: white;
+			transform: rotate(-45deg) translate(-1px, 0);
+		}
+
+		/* responsive breakpoints */
+		@media (max-width: 1024px) {
+			.menu {
+				order: inherit;
+				grid-template-columns: 1fr;
+			}
+			.menu .brand {
+				display: none;
+			}
+
+			.hero > * {
+				display: block;
+				color: #fff;
+				/*background: #000;*/
+				/*opacity: .5;*/
+				margin-bottom: 10px;
+			}
+
+			.hero {
+				display: flex;
+				align-items: start;
+				justify-content: center;
+				flex-direction: column;
+			}
+			.features > * {
+				opacity: 1;
+			}
+			.features .price{
+
+				font-size: 2em;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.menu {
+				order: -1;
+				justify-items: end;
+			}
+		.menu-toggle{
+			display: flex;
+		}
+		.menu ul{
+			display: flex;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+			height: 100vh;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-evenly;
+			background-color: black;
+			z-index: 1;
+			transform: translateY(-100%);
+			transition: all 1s;
+			opacity: 0;
+		}
+		.menu ul.slide{
+			opacity: 1;
+			transform: translateY(0);
+
+		}			
+	}
+
+		@media (max-width: 600px) {
+			body {
+				margin: 15px;
+			}
+			.header {
+				grid-template-areas: 
+			'hero'
+			'feature-1'
+			'feature-2';
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header class="header">
+			<div class="hero">
+				<h2 class="heading">Lasra Merch</h2>
+				<p class="sub-heading">Laptop</p>
+			</div>
+			<div class="features feature-1">
+				<h2 class="price">IDR 4,5 Jt</h2>
+				<p class="item">Laptop Asus</p>
+			</div>
+			<div class="features feature-2">
+				<h2 class="price">IDR 5 Jt</h2>
+				<p class="item">Laptop Acer</p>
+			</div>
+		</header>
+
+		<nav class="menu">
+			<div class="menu-toggle">
+				<input type="checkbox" id="menu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="brand">
+				<h1>Lasra Merch</h1>
+			</div>
+			<ul class="menu-list">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Products</a></li>
+				<li><a href="#">Gallery</a></li>
+			</ul>
+		</nav>
+
+		<section class="services">
+			<div class="service">
+				<div class="icon"><i class='bx bxs-badge-dollar'></i></div>
+				<div class="title">Murah</div>
+				<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia fugiat quaerat praesentium facilis porro similique?</div>
+			</div>
+			<div class="service">
+				<div class="icon"><i class='bx bxs-package'></i></div>
+				<div class="title">Barang Berkualitas</div>
+				<div class="description">Lorem, ipsum dolor sit amet consectetur, adipisicing elit. Similique commodi ipsa provident architecto maiores nihil cupiditate facilis, voluptatibus, molestias. Quas.</div>
+			</div>
+			<div class="service">
+				<div class="icon"><i class='bx bx-message-rounded-check'></i></div>
+				<div class="title">Pelayanan Ramah</div>
+				<div class="description">Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit, nesciunt? Laborum, molestiae, iure doloremque voluptas non ratione vel consequatur.</div>
+			</div>
+			<div class="service">
+				<div class="icon"><i class='bx bx-save'></i></div>
+				<div class="title">Barang datang dengan selamat</div>
+				<div class="description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, soluta pariatur error aliquid ullam, magni cupiditate ducimus, deleniti quam nulla dignissimos.</div>
+			</div>
+		</section>
+		<section class="gallery">
+			<h2>gallery</h2>
+			<img src="https://source.unsplash.com/random/201x201" alt="">
+			<img src="https://source.unsplash.com/random/202x202" alt="">
+			<img src="https://source.unsplash.com/random/203x203" alt="">
+			<img src="https://source.unsplash.com/random/204x204" alt="">
+			<img src="https://source.unsplash.com/random/205x205" alt="">
+			<img src="https://source.unsplash.com/random/206x206" alt="">
+			<img src="https://source.unsplash.com/random/207x207" alt="">
+			<img src="https://source.unsplash.com/random/208x208" alt="">
+			<img src="https://source.unsplash.com/random/209x209" alt="">
+			<img src="https://source.unsplash.com/random/2010x2010" alt="">
+		</section>
+	</div>
+
+	<script>
+		const pilihElement = s => document.querySelector(s);
+const ul = pilihElement('ul');
+
+// membuka menu
+pilihElement('#menu').addEventListener('click', () => {
+	ul.classList.toggle('slide');
+})
+	</script>
+
+</body>
+</html>
